@@ -1,0 +1,35 @@
+{
+    "name": "ibmtncp",
+     "id": "jayrajedake-ibmtncp-datasource",
+    "type": "datasource",
+    "annotations": true,
+    "metrics": true,
+    "logs": true,
+    "info": {
+        "author": {
+            "name": "IBM"
+        },
+        "description": "Load JSON data over your IBM TNCP HTTP backend",
+        "keywords": ["json", "api"],
+        "logos": {
+            "small": "img/json-logo.svg",
+            "large": "img/json-logo.svg"
+        },        
+        "links": [
+            {
+                "name": "GitHub",
+                "url": "https://github.com/Jayraj-Edake/tncp-grafana-json-datasource"
+            },
+            {
+                "name": "MIT License",
+                "url": "https://github.com/Jayraj-Edake/tncp-grafana-json-datasource/blob/tncp-grafana-json-datasource/LICENSE"
+            }
+        ],
+        "version": "%VERSION%",
+        "updated": "%TODAY%"
+    },
+    "dependencies": {
+        "grafanaDependency": ">=8.0.0",
+        "plugins": [ ]
+    }
+}

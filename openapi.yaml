@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: TNCP JSON Datasource API
+  description: API definition for the Grafana plugin TNCP json datasource
+                https://github.com/Jayraj-Edake/tncp-grafana-json-datasource                
+  version: "0.1"
+   Base URL: /service/dataset/connect/ 
+paths:
+  /:
+    get:
+      summary: "Test connection"
+      description: Used for "Test connection" on the datasource config page
+      operationId: api.endpoints.datasource_health
+      tags:
+        - Health Check
+      responses:
+        '200':
+          description: Positive health check
+
+  /resourceTypes: (resourceTypes?flatFormat=true&appendAll=true)
+    post:
+      summary: Values for resource types
+      description: returns possible values for resource types
+      operationId: api.endpoints.resourceTypes
+      tags:
+        - Visualization
+      requestBody:
+        required: true
+        description: The body is sent when fetching resource types
+        content:
+          application/json:
+            schema:
+              type: JSON object
+              example of request JSON Object: {"target":""}
+      responses:
+        '200':
+          description: "returns list of resource types"
+          content:
+            application/json:
+              - type: JSON object
+               example of resposne JSON Object: ["ALL","AMF","APN","CHF","DNN","DU","Domain","GNB","Market","NRF"]
+
+/metrics: (metrics?resourceType=ALL&flatFormat=true)
+    post:
+      summary: Values for metrics
+      description: returns possible values for metrics
+      operationId: api.endpoints.metrics
+      tags:
+        - Visualization
+      requestBody:
+        required: true
+        description: The body is sent when fetching metrics
+        content:
+          application/json:
+             type: JSON object
+              example of request JSON Object: {"target":""}
+      responses:
+        '200':
+          description: "returns list of metrics"
+          content:
+            application/json:
+            - type: JSON object
+             example of resposne JSON Object: ["CPU.Interrupt.Utilization.Percent","CPU.Utilization.Percent","Common.CPU.Utilization.Percent","Common.Current.Connections.Client.Side","Common.Current.Connections.Server.Side","Common.Inbound.Throughput.Client.Side.bps"]
+
+  /search:
+    post:
+      summary: List available resources
+      description: Used by the find metric options on the query tab in panels & in variables editor
+      operationId: api.endpoints.list_metrics
+      tags:
+        - Visualization
+      requestBody:
+        required: true
+        description: The body is sent when using query variables
+        content:
+          application/json:
+             type: JSON object
+             example of request JSON object: 1){target:SELECT resource.type}
+              2){"target":"SELECT resource.id WHERE resource.type == 'Market'"}
+      responses:
+        '200':
+          description: "Returns list of resources satisfying condition mentioned inside variables editor"
+          content:
+            application/json:
+              schema:
+                type: JSON Object
+                example of request JSON object: 1)["Market","Region","device","deviceGtm","deviceLtm"]
+                      2)["Global","North East","South Central"]
+                     
+  /query:
+    post:
+      summary: Query
+      description: Returns metrics data based on selected filters
+      operationId: api.endpoints.query
+      tags:
+        - Visualization
+      requestBody:
+        required: true
+        content:
+          application/json:
+          example of request JSON Object: {"app":"dashboard","requestId":"Q105","timezone":"browser","panelId":2,"dashboardId":36,"range":{"from":"2022-02-03T18:30:00.000Z","to":"2022-02-05T18:29:59.000Z","raw":{"from":"2022-02-03T18:30:00.000Z","to":"2022-02-05T18:29:59.000Z"}},"timeInfo":"","interval":"5m","intervalMs":300000,"targets":[{"payload":"","refId":"A","target":"interface!Network.Outbound.Packets.Count","datasource":"ITNCP-AUTH"}],"maxDataPoints":400,"scopedVars":{"__interval":{"text":"5m","value":"5m"},"__interval_ms":{"text":"300000","value":300000}},"startTime":1645265383171,"rangeRaw":{"from":"2022-02-03T18:30:00.000Z","to":"2022-02-05T18:29:59.000Z"},"adhocFilters":[]}
+      responses:
+        '200':
+          description: "Can be a 'timeseries' or 'table' response"
+          content:
+            application/json:
+            - type: JSON object
+            example of resposne JSON Object : [{"target":"10.55.239.138_interface:<260>","datapoints":[[0.0,1643913000000],[0.0,1643914800000],[0.0,1643916600000],[0.0,1643918400000],[0.0,1643920200000],[0.0,1643922000000],[0.0,1643923800000],[0.0,1643925600000],[0.0,1643927400000],[0.0,1643929200000],[0.0,1643931000000],[0.0,1643932800000],[0.0,1643934600000],[0.0,1643936400000],[0.0,1643938200000],[0.0,1643940000000],[0.0,1643941800000],[0.0,1643943600000],[0.0,1643945400000],[0.0,1643947200000],[0.0,1643949000000],[0.0,1643950800000],[0.0,1643952600000],[0.0,1643954400000],[0.0,1643956200000],[0.0,1643958000000],[0.0,1643959800000],[0.0,1643961600000],[0.0,1643963400000],[0.0,1643965200000],[0.0,1643967000000],[0.0,1643968800000],[0.0,1643970600000],[0.0,1643972400000],[0.0,1643974200000],[0.0,1643976000000],[0.0,1643977800000],[0.0,1643979600000],[0.0,1643981400000],[0.0,1643983200000],[0.0,1643985000000],[0.0,1643986800000],[0.0,1643988600000],[0.0,1643990400000],[0.0,1643992200000],[0.0,1643994000000],[0.0,1643995800000],[0.0,1643997600000],[0.0,1643999400000],[0.0,1644001200000],[0.0,1644003000000],[0.0,1644004800000],[0.0,1644006600000],[0.0,1644008400000],[0.0,1644010200000],[0.0,1644012000000],[0.0,1644013800000],[0.0,1644015600000],[0.0,1644017400000],[0.0,1644019200000],[0.0,1644021000000],[0.0,1644022800000],[0.0,1644024600000],[0.0,1644026400000],[0.0,1644028200000],[0.0,1644030000000],[0.0,1644031800000],[0.0,1644033600000],[0.0,1644035400000],[0.0,1644037200000]]},{"target":"10.55.239.31_interface:<4>","datapoints":[[0.0,1643913000000],[0.0,1643914800000],[0.0,1643916600000],[0.0,1643918400000],[0.0,1643920200000],[0.0,1643922000000],[0.0,1643923800000],[0.0,1643925600000],[0.0,1643927400000],[0.0,1643929200000],[0.0,1643931000000],[0.0,1643932800000],[0.0,1643934600000],[0.0,1643936400000],[0.0,1643938200000],[0.0,1643940000000],[0.0,1643941800000],[0.0,1643943600000],[0.0,1643945400000],[0.0,1643947200000],[0.0,1643949000000],[0.0,1643950800000],[0.0,1643952600000],[0.0,1643954400000],[0.0,1643956200000],[0.0,1643958000000],[0.0,1643959800000],[0.0,1643961600000],[0.0,1643963400000],[0.0,1643965200000],[0.0,1643967000000],[0.0,1643968800000],[0.0,1643970600000],[0.0,1643972400000],[0.0,1643974200000],[0.0,1643976000000],[0.0,1643977800000],[0.0,1643979600000],[0.0,1643981400000],[0.0,1643983200000],[0.0,1643985000000],[0.0,1643986800000],[0.0,1643988600000],[0.0,1643990400000],[0.0,1643992200000],[0.0,1643994000000],[0.0,1643995800000],[0.0,1643997600000],[0.0,1643999400000],[0.0,1644001200000],[0.0,1644003000000],[0.0,1644004800000],[0.0,1644006600000],[0.0,1644008400000],[0.0,1644010200000],[0.0,1644012000000],[0.0,1644013800000],[0.0,1644015600000],[0.0,1644017400000],[0.0,1644019200000],[0.0,1644021000000],[0.0,1644022800000],[0.0,1644024600000],[0.0,1644026400000],[0.0,1644028200000],[0.0,1644030000000],[0.0,1644031800000],[0.0,1644033600000],[0.0,1644035400000],[0.0,1644037200000]]},{"target":"10.55.239.138_interface:<227>","datapoints":[[0.0,1643913000000],[0.0,1643914800000],[0.0,1643916600000],[0.0,1643918400000],[0.0,1643920200000],[0.0,1643922000000],[0.0,1643923800000],[0.0,1643925600000],[0.0,1643927400000],[0.0,1643929200000],[0.0,1643931000000],[0.0,1643932800000],[0.0,1643934600000],[0.0,1643936400000],[0.0,1643938200000],[0.0,1643940000000],[0.0,1643941800000],[0.0,1643943600000],[0.0,1643945400000],[0.0,1643947200000],[0.0,1643949000000],[0.0,1643950800000],[0.0,1643952600000],[0.0,1643954400000],[0.0,1643956200000],[0.0,1643958000000],[0.0,1643959800000],[0.0,1643961600000],[0.0,1643963400000],[0.0,1643965200000],[0.0,1643967000000],[0.0,1643968800000],[0.0,1643970600000],[0.0,1643972400000],[0.0,1643974200000],[0.0,1643976000000],[0.0,1643977800000],[0.0,1643979600000],[0.0,1643981400000],[0.0,1643983200000],[0.0,1643985000000],[0.0,1643986800000],[0.0,1643988600000],[0.0,1643990400000],[0.0,1643992200000],[0.0,1643994000000],[0.0,1643995800000],[0.0,1643997600000],[0.0,1643999400000],[0.0,1644001200000],[0.0,1644003000000],[0.0,1644004800000],[0.0,1644006600000],[0.0,1644008400000],[0.0,1644010200000],[0.0,1644012000000],[0.0,1644013800000],[0.0,1644015600000],[0.0,1644017400000],[0.0,1644019200000],[0.0,1644021000000],[0.0,1644022800000],[0.0,1644024600000],[0.0,1644026400000],[0.0,1644028200000],[0.0,1644030000000],[0.0,1644031800000],[0.0,1644033600000],[0.0,1644035400000],[0.0,1644037200000]]},{"target":"10.55.239.235_interface:<20>","datapoints":[[5.0,1643913000000],[5.0,1643914800000],[5.0,1643916600000],[5.0,1643918400000],[5.0,1643920200000],[5.0,1643922000000],[5.0,1643923800000],[5.0,1643925600000],[5.0,1643927400000],[5.0,1643929200000],[5.0,1643931000000],[5.0,1643932800000],[5.0,1643934600000],[5.0,1643936400000],[5.0,1643938200000],[5.0,1643940000000],[5.0,1643941800000],[5.0,1643943600000],[5.0,1643945400000],[5.0,1643947200000],[5.0,1643949000000],[5.0,1643950800000],[5.0,1643952600000],[5.0,1643954400000],[5.0,1643956200000],[5.0,1643958000000],[5.0,1643959800000],[5.0,1643961600000],[5.0,1643963400000],[5.0,1643965200000],[5.0,1643967000000],[5.0,1643968800000],[5.0,1643970600000],[5.0,1643972400000],[5.0,1643974200000],[5.0,1643976000000],[5.0,1643977800000],[5.0,1643979600000],[5.0,1643981400000],[5.0,1643983200000],[5.0,1643985000000],[5.0,1643986800000],[5.0,1643988600000],[5.0,1643990400000],[5.0,1643992200000],[5.0,1643994000000],[5.0,1643995800000],[5.0,1643997600000],[5.0,1643999400000],[5.0,1644001200000],[5.0,1644003000000],[5.0,1644004800000],[5.0,1644006600000],[5.0,1644008400000],[5.0,1644010200000],[5.0,1644012000000],[5.0,1644013800000],[5.0,1644015600000],[5.0,1644017400000],[5.0,1644019200000],[5.0,1644021000000],[5.0,1644022800000],[5.0,1644024600000],[5.0,1644026400000],[5.0,1644028200000],[5.0,1644030000000],[5.0,1644031800000],[5.0,1644033600000],[5.0,1644035400000],[5.0,1644037200000]]}  
+ 
+  /tag-keys:
+    post:
+      summary: Keys for ad hoc filters
+      description: returns possible keys for ad hoc filters
+      operationId: api.endpoints.tag_keys
+      tags:
+        - Ad Hoc Filters
+      requestBody:
+        required: false  
+      responses:
+        '200':
+          description: List of ad hoc filter keys
+          content:
+            application/json:
+            type: JSON object
+            example of resposne JSON object: [{"type":"string","text":"DataCenter"},{"type":"string","text":"Domain"},{"type":"string","text":"Market"},{"type":"string","text":"NFName"},{"type":"string","text":"NFType"},{"type":"string","text":"Region"},{"type":"string","text":"Vendor"},{"type":"string","text":"displayName"},{"type":"string","text":"id"},{"type":"string","text":"siteId"},{"type":"string","text":"type"},{"type":"string","text":"vDU"}]
+          
+  /tag-values:
+    post:
+      summary: Values for ad hoc filters
+      description: returns possible values for ad hoc filters
+      operationId: api.endpoints.tag_values
+      tags:
+        - Ad Hoc Filters
+      requestBody:
+        required: true
+        content:
+          application/json:
+          type: JSON object
+          example of request JSON object: {"key":"Market"}
+      responses:
+        '200':
+          description: A valid response
+          application/json:
+          type: JSON object
+          example of response JSON object: [{"text":"Global"},{"text":"None"},{"text":"North East"},{"text":"South Central"}]
+
+
+

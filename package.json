@@ -1,0 +1,41 @@
+{
+  "name": "grafana-ibmtncp-datasource",
+  "description": "Grafana IBM TNCP JSON datasource",
+  "main": "index.js",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "grafana-toolkit plugin:build",
+    "test": "grafana-toolkit plugin:test",
+    "dev": "grafana-toolkit plugin:dev",
+    "watch": "grafana-toolkit plugin:dev --watch",
+    "sign": "grafana-toolkit plugin:sign",
+    "build-sign-release": "yarn run build && yarn run sign && yarn run package",
+    "package": "cp -r dist/ grafana-ibmtncp-datasource && zip grafana-ibmtncp-datasource.zip grafana-ibmtncp-datasource -r && rm -rfd grafana-ibmtncp-datasource",
+    "release:patch": "npm version patch && yarn run build-sign-release",
+    "prettier:check": "prettier --list-different \"**/*.{ts,tsx,scss}\"",
+    "prettier:write": "prettier --list-different \"**/*.{ts,tsx,scss}\" --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jayraj-Edake/tncp-grafana-json-datasource.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jayraj-Edake/tncp-grafana-json-datasource.git"
+  },
+  "engineStrict": true,
+  "devDependencies": {
+    "@grafana/data": "8.1.5",
+    "@grafana/runtime": "8.1.5",
+    "@grafana/toolkit": "8.1.5",
+    "@grafana/ui": "8.1.5",
+    "@types/lodash": "^4.14.169",
+    "@types/react-virtualized-auto-sizer": "^1.0.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "react-virtualized-auto-sizer": "^1.0.5",
+    "rxjs": "^7.3.0"
+  },
+  "homepage": "https://github.com/Jayraj-Edake/tncp-grafana-json-datasource/blob/master/README.md"
+}
