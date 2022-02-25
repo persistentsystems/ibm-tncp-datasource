@@ -1,6 +1,6 @@
 {
     "name": "ibmtncp",
-     "id": "jayrajedake-ibmtncp-datasource",
+     "id": "persistentsystems-ibmtncp-datasource",
     "type": "datasource",
     "annotations": true,
     "metrics": true,
@@ -12,17 +12,17 @@
         "description": "Load JSON data over your IBM TNCP HTTP backend",
         "keywords": ["json", "api"],
         "logos": {
-            "small": "img/json-logo.svg",
-            "large": "img/json-logo.svg"
+            "small": "img/tncp-logo.svg",
+            "large": "img/tncp-logo.svg"
         },        
         "links": [
             {
                 "name": "GitHub",
-                "url": "https://github.com/Jayraj-Edake/tncp-grafana-json-datasource"
+                "url": "https://github.com/persistentsystems/ibm-tncp-datasource.git"
             },
             {
                 "name": "MIT License",
-                "url": "https://github.com/Jayraj-Edake/tncp-grafana-json-datasource/blob/tncp-grafana-json-datasource/LICENSE"
+                "url": "https://github.com/persistentsystems/ibm-tncp-datasource/blob/master/LICENSE"
             }
         ],
         "version": "%VERSION%",
