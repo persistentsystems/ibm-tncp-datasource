@@ -22,10 +22,10 @@ The JSON Datasource executes requests against IBM TNCP HTTP backend and parses J
 To install this plugin using the `grafana-cli` tool:
 
 ```sh
- grafana-cli plugins install jayrajedake-ibmtncp-datasource
+ grafana-cli plugins install persistentsystems-ibmtncp-datasource
  ```
 
-See [here](https://github.com/Jayraj-Edake/tncp-grafana-json-datasource) for more information.
+See [here](https://github.com/persistentsystems/ibm-tncp-datasource) for more information.
 
 ## Setup
 
@@ -37,7 +37,7 @@ If you want to add custom headers, keep Access set to `Server`.
 
 ## API
 
-An OpenAPI definition is defined at [openapi.yaml](https://github.com/Jayraj-Edake/tncp-grafana-json-datasource/blob/tncp-grafana-json-datasource/openapi.yaml).
+An OpenAPI definition is defined at [openapi.yaml](https://github.com/persistentsystems/ibm-tncp-datasource/blob/master/openapi.yaml).
 
 To work with this datasource the backend needs to implement 4 endpoints:
 

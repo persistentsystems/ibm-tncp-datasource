@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: TNCP JSON Datasource API
   description: API definition for the Grafana plugin TNCP json datasource
-                https://github.com/Jayraj-Edake/tncp-grafana-json-datasource                
+                https://github.com/persistentsystems/ibm-tncp-datasource                
   version: "0.1"
    Base URL: /service/dataset/connect/ 
 paths:
